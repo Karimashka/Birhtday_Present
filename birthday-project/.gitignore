@@ -1,0 +1,45 @@
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# PYTHON (Backend)
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+.env
+.venv
+venv/
+env/
+
+# PyCharm
+.idea/
+
+# =========================
+# NODE (Frontend)
+# =========================
+node_modules/
+dist/
+build/
+.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Vite
+# =========================
+.vite/
+
+# =========================
+# Misc
+# =========================
+*.log
