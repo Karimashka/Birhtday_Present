@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -6,14 +7,12 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
-BASE_URL = "http://localhost:8000"
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
 app = FastAPI(title="Romantic Birthday API")
 
-
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
+# CORS_ORIGIN задаётся через переменную окружения (через запятую для нескольких)
+_cors_env = os.getenv("CORS_ORIGIN", "http://localhost:5173,http://127.0.0.1:5173")
+origins = [o.strip() for o in _cors_env.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: birthday-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - BASE_URL=${BASE_URL:-http://localhost:8000}
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:80}
+    volumes:
+      # Монтируем папку с фото, чтобы не пересобирать образ при добавлении фотографий
+      - ./backend/static:/app/static
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # URL бэкенда, к которому обращается браузер (не внутри docker сети!)
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+    container_name: birthday-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
